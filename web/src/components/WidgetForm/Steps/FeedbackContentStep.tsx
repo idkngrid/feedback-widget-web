@@ -24,16 +24,15 @@ export function FeedbackContentStep({ feedbackType, onFeedbackRestartResquested,
 
         setisSendingFeedback(true);
 
-        // console.log({
-        //     screenshot,
-        //     comment,
-        // })
-
-        await api.post('/feedbacks', {
-            type: feedbackType,
-            comment,
-            screenshot,
-        });
+        try {
+            await api.post('/feedbacks', {
+                type: feedbackType,
+                comment,
+                screenshot,
+            });
+        } catch (error) {
+            console.log(error);
+        }
 
         setisSendingFeedback(false);
         onFeedbackSent();
